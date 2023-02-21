@@ -1,4 +1,4 @@
-package com.anunad.WalletVerification.util;
+package com.anunad.WalletVerification.helper.Nagad;
 
 import com.anunad.WalletVerification.helper.Nagad.AuthorizationResponse;
 import com.anunad.WalletVerification.helper.Nagad.NagadAuthData;
@@ -16,7 +16,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-public class HTTPRequestUtil {
+public class NagadHTTPRequestUtil {
 
     private static GsonBuilder builder = new GsonBuilder();
     private static Gson gson = builder.setDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'").create();
@@ -40,8 +40,8 @@ public class HTTPRequestUtil {
 
             String urlParameters  = "username="+ NAGAD_LIVE_USERNAME +"&password="+ NAGAD_LIVE_PASSWORD +"&grant_type=password";
 
-            byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
-            int postDataLength = postData.length;
+//            byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+//            int postDataLength = postData.length;
 
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -89,6 +89,8 @@ public class HTTPRequestUtil {
                 NagadAuthData.userName = authReponse.getUserName();
                 NagadAuthData.issued = authReponse.getIssued();
                 NagadAuthData.client_id = authReponse.getClient_id();
+                NagadAuthData.expired_time_in_ms = System.currentTimeMillis() + authReponse.getExpires_in() * 1000;
+
 
 //                System.out.println(authReponse.getExpires());
 //                System.out.println(authReponse.getAccess_token());

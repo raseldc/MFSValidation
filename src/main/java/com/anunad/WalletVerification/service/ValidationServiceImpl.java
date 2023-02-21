@@ -1,7 +1,7 @@
 package com.anunad.WalletVerification.service;
 
-import com.anunad.WalletVerification.helper.Nagad.WalletStatus;
-import com.anunad.WalletVerification.helper.NagadVerificationHelper;
+import com.anunad.WalletVerification.helper.WalletStatus;
+import com.anunad.WalletVerification.helper.Nagad.NagadVerificationHelper;
 import com.anunad.WalletVerification.model.Beneficiary;
 import com.anunad.WalletVerification.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.anunad.WalletVerification.helper;
+package com.anunad.WalletVerification.util;
 
 public class VerifyReponse {
     private boolean isError;

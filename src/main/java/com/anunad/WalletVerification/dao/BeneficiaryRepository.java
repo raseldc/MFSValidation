@@ -1,6 +1,7 @@
 package com.anunad.WalletVerification.dao;
 
 import com.anunad.WalletVerification.model.Beneficiary;
+import com.anunad.WalletVerification.util.Constant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -35,10 +36,21 @@ public interface BeneficiaryRepository extends JpaRepository<Beneficiary, Intege
 
 
     @Query(value = "SELECT ben.* FROM imlma.beneficiary ben LEFT JOIN imlma.beneficiary_wallet_validation val ON ben.id = val.id " +
-            " WHERE ben.mobile_banking_provider_id = 30 and ben.is_account_verfied = ?1  and IFNULL(val.attempt,0) < 5 " +
-            " and DATE_ADD(IFNULL(wv.modified_time, '2022-01-01'), INTERVAL 5 HOUR) < NOW() " +
+            " WHERE ben.mobile_banking_provider_id = 30 and ben.is_account_verfied = ?1  " +
+            " and IFNULL(val.attempt,0) < " + Constant.ALLOWED_ATTEMPT +
+            " and DATE_ADD(IFNULL(val.modified_time, '2022-01-01'), INTERVAL "+ Constant.INTERVAL_HOUR +" HOUR) < NOW() " +
             " order by ben.Id limit ?2", nativeQuery = true)
     List<Beneficiary> findBeneficiariesByStatusAndLimitAttempt(int verificationStatus, int limit);
+
+
+    @Query(value = "SELECT ben.* FROM imlma.beneficiary ben LEFT JOIN imlma.wallet_validation val " +
+            " ON (ben.Id = val.beneficiary_id and ben.mobile_banking_provider_id = val.mobile_bank_provider_id" +
+            " and ben.account_no = val.account_no ) " +
+            " WHERE ben.mobile_banking_provider_id = 30 and ben.is_account_verfied = ?1  " +
+            " and IFNULL(val.attempt,0) <  " + Constant.ALLOWED_ATTEMPT +
+            " and DATE_ADD(IFNULL(val.modified_time, '2022-01-01'), INTERVAL "+ Constant.INTERVAL_HOUR +" HOUR) < NOW() " +
+            " order by ben.Id limit ?2", nativeQuery = true)
+    List<Beneficiary> findBenForWalletValidation(int verificationStatus, int limit);
 
     @Transactional
     @Modifying

@@ -22,7 +22,7 @@ public interface BeneficiaryService {
 
     List<Beneficiary> findBeneficiariesByStatusAndLimitAttempt(int verificationStatus, int limit);
 
-
+    List<Beneficiary> findBenForWalletValidation(int verificationStatus, int limit);
 
     int setAccountVerificationStatus(List<Integer> idList, int status);
 

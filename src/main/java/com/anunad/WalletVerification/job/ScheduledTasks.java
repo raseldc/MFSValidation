@@ -32,7 +32,7 @@ public class ScheduledTasks {
 
     public void scheduleTaskWithInitialDelay() {}
 
-    @Scheduled(cron = "*/10 * 0-1 * * ?")
+    //@Scheduled(cron = "*/10 * 0-1 * * ?")
     public void scheduleTaskWithCronExpression() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();

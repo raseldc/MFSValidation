@@ -1,9 +1,8 @@
-package com.anunad.WalletVerification.helper.Nagad;
+package com.anunad.WalletVerification.helper.Upay;
 
 import java.util.Date;
 
-public class NagadAuthData {
-
+public class UpayAuthData {
     public static String access_token;
     public static  String token_type;
     public static  String refresh_token;

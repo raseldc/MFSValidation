@@ -1,4 +1,4 @@
-package com.anunad.WalletVerification.helper.Nagad;
+package com.anunad.WalletVerification.helper;
 
 public class WalletStatus {
     private boolean isError;

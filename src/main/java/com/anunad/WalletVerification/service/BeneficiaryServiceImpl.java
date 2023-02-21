@@ -53,6 +53,11 @@ public class BeneficiaryServiceImpl implements BeneficiaryService {
     }
 
     @Override
+    public List<Beneficiary> findBenForWalletValidation(int verificationStatus, int limit) {
+        return beneficiaryRepository.findBenForWalletValidation(verificationStatus, limit);
+    }
+
+    @Override
     public int setAccountVerificationStatus(List<Integer> idList, int status) {
         return beneficiaryRepository.setAccountVerificationStatus(idList, status);
     }

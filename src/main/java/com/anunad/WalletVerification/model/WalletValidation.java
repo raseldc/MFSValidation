@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-//@Entity
-//@Table(name = "wallet_validation", schema = "imlma", catalog = "")
+@Entity
+@Table(name = "wallet_validation")
 public class WalletValidation {
-  /*
+
     private int id;
 
     private Timestamp createdTime;
@@ -17,33 +17,35 @@ public class WalletValidation {
     private Integer isAllow;
     private Integer beneficiaryId;
 
-    private Integer MobileBankingProviderId;
+    private Integer mobileBankingProviderId;
 
-    @ManyToOne
-    @JoinColumn(name = "beneficiary_id", referencedColumnName = "Id", nullable = false)
-    private Beneficiary beneficiaryById;
+    private int isVerified;
 
-    @ManyToOne
-    @JoinColumn(name = "mobile_bank_provider_id", referencedColumnName = "Id", nullable = false)
-    private MobileBankingProvider MobileBankingProviderById;
+//    @ManyToOne
+//    @JoinColumn(name = "beneficiary_id", referencedColumnName = "Id", nullable = false)
+//    private Beneficiary beneficiaryById;
+
+//    @ManyToOne
+//    @JoinColumn(name = "mobile_bank_provider_id", referencedColumnName = "Id", nullable = false)
+//    private MobileBankingProvider MobileBankingProviderById;
 
     @Basic
     @Column(name = "mobile_bank_provider_id", nullable = true)
     public Integer getMobileBankingProviderId() {
-        return MobileBankingProviderId;
+        return mobileBankingProviderId;
     }
 
     public void setMobileBankingProviderId(Integer mobileBankingProviderId) {
-        MobileBankingProviderId = mobileBankingProviderId;
+        this.mobileBankingProviderId = mobileBankingProviderId;
     }
 
-    public MobileBankingProvider getMobileBankingProviderById() {
-        return MobileBankingProviderById;
-    }
-
-    public void setMobileBankingProviderById(MobileBankingProvider mobileBankingProviderById) {
-        MobileBankingProviderById = mobileBankingProviderById;
-    }
+//    public MobileBankingProvider getMobileBankingProviderById() {
+//        return MobileBankingProviderById;
+//    }
+//
+//    public void setMobileBankingProviderById(MobileBankingProvider mobileBankingProviderById) {
+//        MobileBankingProviderById = mobileBankingProviderById;
+//    }
 
     @Basic
     @Column(name = "beneficiary_id", nullable = true)
@@ -56,13 +58,13 @@ public class WalletValidation {
     }
 
 
-    public Beneficiary getBeneficiaryById() {
-        return beneficiaryById;
-    }
-
-    public void setBeneficiaryById(Beneficiary beneficiaryById) {
-        this.beneficiaryById = beneficiaryById;
-    }
+//    public Beneficiary getBeneficiaryById() {
+//        return beneficiaryById;
+//    }
+//
+//    public void setBeneficiaryById(Beneficiary beneficiaryById) {
+//        this.beneficiaryById = beneficiaryById;
+//    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -124,6 +126,16 @@ public class WalletValidation {
         this.isAllow = isAllow;
     }
 
+
+    @Column(name="is_verfied")
+    public int getIsVerified() {
+        return isVerified;
+    }
+
+    public void setIsVerified(int isVerified) {
+        this.isVerified = isVerified;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -141,5 +153,5 @@ public class WalletValidation {
     public int hashCode() {
         return Objects.hash(id, createdTime, modifiedTime, accountNo, attempt, isAllow);
     }
-    */
+
 }

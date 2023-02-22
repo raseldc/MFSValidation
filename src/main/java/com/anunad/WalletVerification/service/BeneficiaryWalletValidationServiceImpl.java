@@ -8,24 +8,43 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author rasel
+ */
 @Service
 public class BeneficiaryWalletValidationServiceImpl implements BeneficiaryWalletValidationService {
 
     @Autowired
     BeneficiaryWalletValidationRepository beneficiaryWalletValidationRepository;
 
+    /**
+     *
+     * @param beneficiaryWalletValidation
+     * @return
+     */
     @Override
     public boolean save(BeneficiaryWalletValidation beneficiaryWalletValidation) {
         beneficiaryWalletValidationRepository.save(beneficiaryWalletValidation);
         return true;
     }
 
+    /**
+     *
+     * @param beneficiaryWalletValidations
+     * @return
+     */
     @Override
     public boolean saveAll(List<BeneficiaryWalletValidation> beneficiaryWalletValidations) {
         beneficiaryWalletValidationRepository.saveAll(beneficiaryWalletValidations);
         return true;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public BeneficiaryWalletValidation findById(int id) {
         Optional<BeneficiaryWalletValidation> optional = beneficiaryWalletValidationRepository.findById(id);
@@ -33,6 +52,11 @@ public class BeneficiaryWalletValidationServiceImpl implements BeneficiaryWallet
         return null;
     }
 
+    /**
+     *
+     * @param ids
+     * @return
+     */
     @Override
     public List<BeneficiaryWalletValidation> findAllByIds(List<Integer> ids) {
         beneficiaryWalletValidationRepository.findAllById(ids);

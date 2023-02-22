@@ -1,6 +1,5 @@
 package com.anunad.WalletVerification.controller;
 
-
 import com.anunad.WalletVerification.helper.Nagad.AuthorizationResponse;
 import com.anunad.WalletVerification.helper.WalletStatus;
 import com.anunad.WalletVerification.helper.Nagad.NagadVerificationHelper;
@@ -22,9 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+/**
+ *
+ * @author rasel
+ */
 @Controller
 public class WalletValidationController {
 
@@ -33,7 +35,6 @@ public class WalletValidationController {
 
 //    @Autowired
 //    WalletService walletService;
-
     @Autowired
     private AccountTypeService accountTypeService;
 
@@ -43,39 +44,40 @@ public class WalletValidationController {
     @Autowired
     private BeneficiaryWalletValidationService beneficiaryWalletValidationService;
 
-
     @Autowired
     private WalletValidationService walletValidationService;
 
     @Autowired
     private MobileBankingProviderService mobileBankingProviderService;
 
+    /**
+     *
+     * @return
+     */
     @GetMapping(value = "/nagad/auth")
     @ResponseBody
     public String authorizeNagad() {
 
         AuthorizationResponse authorizationResponse = NagadHTTPRequestUtil.callNagadAuthAPI(NagadHTTPRequestUtil.REQUEST_IDENTIFIER.NagadAuth);
 
-        JSONObject  jsonObject=new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         jsonObject.put("status", "ok");
         return jsonObject.toString();
     }
 
-
+    /**
+     *
+     * @param limit
+     * @return
+     */
     @GetMapping(value = "/validate")
     @ResponseBody
-    public String validateWallet(@RequestParam(name = "limit") int limit)
-    //public String validateWallet()
-    {
-//        MobileBankingProvider mobileBankingProvider = mobileBankingProviderService.findProvideById(typeId);
+    public String validateWallet(@RequestParam(name = "limit") int limit) {
 
-//        List<Beneficiary> beneficiaryList = beneficiaryService.findBeneficiariesByMfsIdAndStatusAndLimit(mobileBankingProvider.getId(),
-//                Constant.STATUS_DEFAULT, 10);
-        //List<Beneficiary> beneficiaryList = beneficiaryService.findBeneficiariesByStatusAndLimit(Constant.STATUS_DEFAULT, limit);
         List<Beneficiary> beneficiaryList = beneficiaryService.findBenForWalletValidation(Constant.STATUS_DEFAULT, limit);
         List<Integer> idList = new ArrayList<>();
 
-        for (int i=0; i<beneficiaryList.size(); i++){
+        for (int i = 0; i < beneficiaryList.size(); i++) {
             idList.add(beneficiaryList.get(i).getId());
         }
 
@@ -85,13 +87,13 @@ public class WalletValidationController {
         List<Integer> successList = new ArrayList<>();
         List<Integer> failedList = new ArrayList<>();
 
-        for(int i=0; i<beneficiaryList.size(); i++){
+        for (int i = 0; i < beneficiaryList.size(); i++) {
             Beneficiary temp = beneficiaryList.get(i);
 
             WalletStatus walletStatus = new WalletStatus();
             int walletType = temp.getMobileBankingProvider() != null ? temp.getMobileBankingProvider().intValue() : -1;
 
-            switch (walletType){
+            switch (walletType) {
                 case Constant.WALLET_NAGAD:
                     walletStatus = NagadVerificationHelper.getNagadWalletValidation(temp.getNid().toString(), temp.getAccountNo());
                     break;
@@ -103,22 +105,22 @@ public class WalletValidationController {
             }
 
             int status = 0;
-            if(walletStatus.isError()){
+            if (walletStatus.isError()) {
                 status = Constant.STATUS_DEFAULT;
                 triedList.add(temp.getId());
-                System.out.println("triedList: "+temp.getId());
-            }else if(walletStatus.isValid()){
+                System.out.println("triedList: " + temp.getId());
+            } else if (walletStatus.isValid()) {
                 status = Constant.STATUS_SUCCESS;
                 successList.add(temp.getId());
-                System.out.println("successList: "+temp.getId());
-            }else{
+                System.out.println("successList: " + temp.getId());
+            } else {
                 status = Constant.STATUS_FAILED;
                 failedList.add(temp.getId());
-                System.out.println("failedList: "+temp.getId());
+                System.out.println("failedList: " + temp.getId());
             }
 
             walletValidationService.updateOrInsertWalletValidation(
-               temp.getId(), temp.getMobileBankingProvider(), temp.getAccountNo(), status
+                    temp.getId(), temp.getMobileBankingProvider(), temp.getAccountNo(), status
             );
         }
 
@@ -126,9 +128,8 @@ public class WalletValidationController {
         beneficiaryService.setAccountVerificationStatus(failedList, Constant.STATUS_FAILED);
         beneficiaryService.setAccountVerificationStatus(triedList, Constant.STATUS_DEFAULT);
 
-
         List<WalletValidation> walletValidationList = new ArrayList<>();
-/*
+        /*
         HashMap<Integer, WalletValidation> walletMap = new HashMap<>();
         for(int i=0;i<beneficiaryList.size();i++){
             Beneficiary ben = beneficiaryList.get(i);
@@ -148,7 +149,7 @@ public class WalletValidationController {
 //                walletValidationService.save(wallet);
             }
         }
-*/
+         */
         WalletStatus walletStatus = new WalletStatus();
         walletStatus.setError(true);
         walletStatus.setValid(false);
@@ -157,14 +158,19 @@ public class WalletValidationController {
         return gson.toJson(walletStatus);
     }
 
-
+    /**
+     *
+     * @param verifyRequest
+     * @param request
+     * @return
+     */
     @PostMapping(value = "/api/check")
     @ResponseBody
-    public String checkWallet(@RequestBody VerifyRequest verifyRequest, HttpServletRequest request){
+    public String checkWallet(@RequestBody VerifyRequest verifyRequest, HttpServletRequest request) {
 
         WalletStatus walletStatus = new WalletStatus();
-        switch (verifyRequest.getMfs()){
-            case Constant.NAGAD :
+        switch (verifyRequest.getMfs()) {
+            case Constant.NAGAD:
                 walletStatus = NagadVerificationHelper.getNagadWalletValidation(verifyRequest.getNid(), verifyRequest.getAccountNo());
                 break;
             case Constant.UPAY:
@@ -177,19 +183,22 @@ public class WalletValidationController {
         return gson.toJson(walletStatus);
     }
 
-
+    /**
+     *
+     * @return
+     */
     @GetMapping(value = "/test")
     @ResponseBody
-    public String test(){
+    public String test() {
 
         List<Beneficiary> beneficiaryList = beneficiaryService.findBeneficiariesByStatusAndLimitAttempt(0, 5);
 
-        int count=0;
-        for(int i=0;i<beneficiaryList.size();i++){
-            if(beneficiaryList.get(i).getBeneficiaryWalletValidation() ==null){
-                System.out.println("id: " + beneficiaryList.get(i).getId() +" Validation null");
-            }else{
-                System.out.println("id: " + beneficiaryList.get(i).getId() +" Attempt: "+beneficiaryList.get(i).getBeneficiaryWalletValidation().getAttempt());
+        int count = 0;
+        for (int i = 0; i < beneficiaryList.size(); i++) {
+            if (beneficiaryList.get(i).getBeneficiaryWalletValidation() == null) {
+                System.out.println("id: " + beneficiaryList.get(i).getId() + " Validation null");
+            } else {
+                System.out.println("id: " + beneficiaryList.get(i).getId() + " Attempt: " + beneficiaryList.get(i).getBeneficiaryWalletValidation().getAttempt());
             }
         }
 
@@ -201,9 +210,13 @@ public class WalletValidationController {
         return gson.toJson(walletStatus);
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping(value = "/ver")
     @ResponseBody
-    public String checkSaveUpdate(){
+    public String checkSaveUpdate() {
         BeneficiaryWalletValidation beneficiaryWalletValidation = new BeneficiaryWalletValidation();
         beneficiaryWalletValidation.setId(10281);
         beneficiaryWalletValidation.setModifiedTime(new Timestamp(System.currentTimeMillis()));
@@ -219,8 +232,12 @@ public class WalletValidationController {
         return gson.toJson(walletStatus);
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping(value = "/login")
-    public String view(){
+    public String view() {
 
         return "login";
     }

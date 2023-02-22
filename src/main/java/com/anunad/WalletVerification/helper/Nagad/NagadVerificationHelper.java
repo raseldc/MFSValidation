@@ -6,11 +6,21 @@ import com.google.gson.GsonBuilder;
 
 import java.util.Date;
 
+/**
+ *
+ * @author rasel
+ */
 public class NagadVerificationHelper {
 
     private static GsonBuilder builder = new GsonBuilder();
     private static Gson gson = builder.create();
 
+    /**
+     *
+     * @param nid
+     * @param mobile
+     * @return
+     */
     public static WalletStatus getNagadWalletValidation(String nid, String mobile) {
         AuthorizationResponse authorizationResponse = new AuthorizationResponse();
         if(NagadAuthData.access_token==null){

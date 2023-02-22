@@ -11,7 +11,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.logging.Logger;
 
-
+/**
+ *
+ * @author rasel
+ */
 @Component
 public class ScheduledTasks {
 
@@ -22,21 +25,38 @@ public class ScheduledTasks {
     ValidationService validationService;
 
 //    @Scheduled(fixedRate = 2000)
+
+    /**
+     *
+     */
     public void scheduleTaskWithFixedRate() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         //System.out.println(" Job running .... .... "+formatter.format(date));
     }
 
-    public void scheduleTaskWithFixedDelay() {}
+    /**
+     *
+     */
+    public void scheduleTaskWithFixedDelay() {
+    }
 
-    public void scheduleTaskWithInitialDelay() {}
+    /**
+     *
+     */
+    public void scheduleTaskWithInitialDelay() {
+    }
 
-    //@Scheduled(cron = "*/10 * 0-1 * * ?")
+    // run every 10 sec after 0:0 hour theke 1:0 hour porjonto 
+
+    /**
+     *
+     */
+    @Scheduled(cron = "*/10 * 0-1 * * ?")
     public void scheduleTaskWithCronExpression() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
-        System.out.println(" Job running .... .... at ... "+formatter.format(date));
+        System.out.println(" Job running .... .... at ... " + formatter.format(date));
         validationService.validate(10);
     }
 }

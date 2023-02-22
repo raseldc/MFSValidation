@@ -7,12 +7,15 @@ package com.anunad.WalletVerification.model;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ *
+ * @author Munim at Anunad Solution
+ */
 @Entity
 @Table(name = "mobile_banking_provider")
-public class MobileBankingProvider {
+public class MobileBankingProvider  implements java.io.Serializable{
 
     @Id
     @GeneratedValue
@@ -40,62 +43,122 @@ public class MobileBankingProvider {
     @Column(name = "account_no_length", nullable = false)
     private int accountNoLength;
 
+    /**
+     *
+     * @return
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNameInBangla() {
         return nameInBangla;
     }
 
+    /**
+     *
+     * @param nameInBangla
+     */
     public void setNameInBangla(String nameInBangla) {
         this.nameInBangla = nameInBangla;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNameInEnglish() {
         return nameInEnglish;
     }
 
+    /**
+     *
+     * @param nameInEnglish
+     */
     public void setNameInEnglish(String nameInEnglish) {
         this.nameInEnglish = nameInEnglish;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     *
+     * @param code
+     */
     public void setCode(String code) {
         this.code = code;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRoutingNumber() {
         return routingNumber;
     }
 
+    /**
+     *
+     * @param routingNumber
+     */
     public void setRoutingNumber(String routingNumber) {
         this.routingNumber = routingNumber;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isActive() {
         return active;
     }
 
+    /**
+     *
+     * @param active
+     */
     public void setActive(boolean active) {
         this.active = active;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDeleted() {
         return deleted;
     }
 
+    /**
+     *
+     * @param deleted
+     */
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -103,6 +166,11 @@ public class MobileBankingProvider {
         return hash;
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -121,10 +189,18 @@ public class MobileBankingProvider {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAccountNoLength() {
         return accountNoLength;
     }
 
+    /**
+     *
+     * @param accountNoLength
+     */
     public void setAccountNoLength(int accountNoLength) {
         this.accountNoLength = accountNoLength;
     }

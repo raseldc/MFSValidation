@@ -5,15 +5,6 @@
  */
 package com.anunad.WalletVerification.config;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
-
-import javax.sql.DataSource;
-import java.util.Properties;
-
 /**
  *
  * @author rasel

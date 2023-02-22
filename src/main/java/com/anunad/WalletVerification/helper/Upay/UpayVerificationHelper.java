@@ -7,11 +7,21 @@ import com.google.gson.GsonBuilder;
 
 import java.util.Date;
 
+/**
+ *
+ * @author rasel
+ */
 public class UpayVerificationHelper {
 
     private static GsonBuilder builder = new GsonBuilder();
     private static Gson gson = builder.create();
 
+    /**
+     *
+     * @param nid
+     * @param mobile
+     * @return
+     */
     public static WalletStatus getUpayWalletValidation(String nid, String mobile) {
         UpayAuthResponse authResponse = new UpayAuthResponse();
         if(UpayAuthData.access_token==null){

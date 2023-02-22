@@ -11,13 +11,23 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ *
+ * @author rasel
+ */
 public class CustomDateDeserializer extends JsonDeserializer<Date> {
 
     private final long serialVersionUID = 1L;
     private SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'");
 
-
-
+    /**
+     *
+     * @param jsonParser
+     * @param deserializationContext
+     * @return
+     * @throws IOException
+     * @throws JsonProcessingException
+     */
     @Override
     public Date deserialize(JsonParser jsonParser,
                             DeserializationContext deserializationContext) throws IOException, JsonProcessingException {

@@ -7,12 +7,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *
+ * @author rasel
+ */
 @Service
 public class AccountTypeServiceImpl implements AccountTypeService {
 
     @Autowired
     private AccountTypeRepository accountTypeRepository;
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<AccountType> fetchAccountTypeList() {
         return (List<AccountType>)

@@ -14,6 +14,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+/**
+ *
+ * @author rasel
+ */
 public class UpayHTTPRequestUtil {
 
     private static GsonBuilder builder = new GsonBuilder();
@@ -26,7 +30,11 @@ public class UpayHTTPRequestUtil {
     private static String UPAY_CLIENT_SECRET = "aQvFkYAdsp96BSuW5WjJFNTVIMm6aAqql0XhrMxS9UdxszxxCRgOhkrfdZfRK6KB8lmOxdy56sJxXnb6wQ8KGnWAlr8OM0MgmoKnHtSBgitVoSh7WhFZfQmJYLKIOftc";
     private static String AuthKey = "eGJPZld5R3A4MGZZazd0dEpsb0NOUW0wNWhlZGUyUzRGbjBROWlpMzphUXZGa1lBZHNwOTZCU3VXNVdqSkZOVFZJTW02YUFxcWwwWGhyTXhTOVVkeHN6eHhDUmdPaGtyZmRaZlJLNktCOGxtT3hkeTU2c0p4WG5iNndROEtHbldBbHI4T00wTWdtb0tuSHRTQmdpdFZvU2g3V2hGWmZRbUpZTEtJT2Z0Yw==";
 
-
+    /**
+     *
+     * @param identifier
+     * @return
+     */
     public static UpayAuthResponse callUpayAuthAPI(REQUEST_IDENTIFIER identifier){
         System.out.println("Calling auth.......");
         try{
@@ -110,7 +118,14 @@ public class UpayHTTPRequestUtil {
         return null;
     }
 
-
+    /**
+     *
+     * @param identifier
+     * @param mobile
+     * @param NID
+     * @param accessToken
+     * @return
+     */
     public static UpayValidationResponse callUpayGetWalletValidation(REQUEST_IDENTIFIER identifier, String mobile, String NID, String accessToken){
         System.out.println("Calling validation.......");
         try{
@@ -164,7 +179,9 @@ public class UpayHTTPRequestUtil {
         return null;
     }
 
-
+    /**
+     *
+     */
     public enum REQUEST_IDENTIFIER {
 
         /*
@@ -175,10 +192,26 @@ public class UpayHTTPRequestUtil {
 //        NagadRefreshToken("https://api-sandbox.mynagad.com/dowa/api/token"),
 //        NagadGetWalletValidation("https://api-sandbox.mynagad.com/dowa/api/ACSAPIService/GetClientWalletValidation");
 
+        /**
+         *
+         */
+
 
         UpayAuth(UPAY_BASE_URL+"api/token"),
+
+        /**
+         *
+         */
         UpayChangePassword(UPAY_BASE_URL + "api/ACSAPIService/ChangeApiPassword"),
+
+        /**
+         *
+         */
         UpayRefreshToken(UPAY_BASE_URL + "api/token"),
+
+        /**
+         *
+         */
         UpayGetWalletValidation(UPAY_BASE_URL + "api/ACSAPIService/GetMFSClientInfo");
 
 
@@ -192,6 +225,10 @@ public class UpayHTTPRequestUtil {
             name = requestName;
         }
 
+        /**
+         *
+         * @return
+         */
         public String toString() {
             return this.name;
         }

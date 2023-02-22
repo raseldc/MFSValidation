@@ -16,6 +16,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+/**
+ *
+ * @author rasel
+ */
 public class NagadHTTPRequestUtil {
 
     private static GsonBuilder builder = new GsonBuilder();
@@ -30,6 +34,12 @@ public class NagadHTTPRequestUtil {
 //    private static String NAGAD_BASE_URL = "https://api-sandbox.mynagad.com/dowa/";
 //    private static String NAGAD_LIVE_USERNAME = "qauser";
 //    private static String NAGAD_LIVE_PASSWORD = "q@P@$$wOrd13";
+
+    /**
+     *
+     * @param identifier
+     * @return
+     */
 
     public static AuthorizationResponse callNagadAuthAPI( REQUEST_IDENTIFIER identifier){
         System.out.println("Calling auth.......");
@@ -110,7 +120,14 @@ public class NagadHTTPRequestUtil {
         return null;
     }
 
-
+    /**
+     *
+     * @param identifier
+     * @param mobile
+     * @param NID
+     * @param accessToken
+     * @return
+     */
     public static ValidationResponse callNagadGetWalletValidation( REQUEST_IDENTIFIER identifier, String mobile, String NID, String accessToken){
         System.out.println("Calling validation.......");
         try{
@@ -162,7 +179,9 @@ public class NagadHTTPRequestUtil {
         return null;
     }
 
-
+    /**
+     *
+     */
     public enum REQUEST_IDENTIFIER {
 
         /*
@@ -173,10 +192,26 @@ public class NagadHTTPRequestUtil {
 //        NagadRefreshToken("https://api-sandbox.mynagad.com/dowa/api/token"),
 //        NagadGetWalletValidation("https://api-sandbox.mynagad.com/dowa/api/ACSAPIService/GetClientWalletValidation");
 
+        /**
+         *
+         */
+
 
         NagadAuth(NAGAD_BASE_URL+"api/token"),
+
+        /**
+         *
+         */
         NagadChangePassword(NAGAD_BASE_URL + "api/ACSAPIService/ChangeApiPassword"),
+
+        /**
+         *
+         */
         NagadRefreshToken(NAGAD_BASE_URL + "api/token"),
+
+        /**
+         *
+         */
         NagadGetWalletValidation(NAGAD_BASE_URL + "api/ACSAPIService/GetClientWalletValidation");
 
 
@@ -190,6 +225,10 @@ public class NagadHTTPRequestUtil {
             name = requestName;
         }
 
+        /**
+         *
+         * @return
+         */
         public String toString() {
             return this.name;
         }
